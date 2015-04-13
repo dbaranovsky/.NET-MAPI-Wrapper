@@ -25,6 +25,15 @@ namespace BrightcoveMapiWrapper.Model.Items
 			private set;
 		}
 
+        /// <summary>
+        /// Video captioning info
+        /// </summary>
+	    public BrightcoveCaptioning Captioning
+	    {
+	        get;
+	        set;
+	    }
+
 		/// <summary>
 		/// The date this Video was created.
 		/// </summary>
@@ -337,6 +346,8 @@ namespace BrightcoveMapiWrapper.Model.Items
 				serialized["cuePoints"] = CuePoints;
 			}
 
+		    serialized["captioning"] = Captioning;
+
 			// The Id must be non-0.
 			if (Id != 0)
 			{
@@ -364,6 +375,10 @@ namespace BrightcoveMapiWrapper.Model.Items
 					case "accountId":
 						AccountId = Convert.ToInt64(dictionary[key]);
 						break;
+
+                    case "captioning":
+                        Captioning = serializer.ConvertToType<BrightcoveCaptioning>(dictionary[key]);
+                        break;
 
 					case "creationDate":
 						DateUtil.ConvertAndSetDate(dictionary[key], d => CreationDate = d);
